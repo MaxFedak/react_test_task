@@ -1,0 +1,23 @@
+[
+   {
+      "name": "beer",
+      "quantity": 5,
+      "price": 2.5
+   },
+   {
+      "name": "milk",
+      "quantity": 4,
+      "price": 7
+   },
+   {
+      "name": "bread",
+      "quantity": 5,
+      "price": 2.5
+   },
+   {
+      "name": "hemp",
+      "quantity": 5,
+      "price": 2.5
+   }
+ ]
+ 
