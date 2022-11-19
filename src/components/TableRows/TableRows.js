@@ -1,22 +1,31 @@
-import list from '../../api/list.json'
 import { nanoid } from "nanoid";
-import { useEffect, useState } from 'react';
-import { Component } from 'react';
 
-export const TableRows = () => {
-   const [state, setState] = useState(list);
 
-   useEffect(() => console.log('smth happened'), [JSON.stringify(list)])
+export const TableRows = ({items, addItem}) => {
+   console.log(items)
 
+   const deleteRowHandler = (event) =>{
+      const prodName = event.target.parentElement.parentElement.firstChild.textContent;
+      const indexToDelete = items.findIndex(item => item.name === prodName)
+      if (indexToDelete >= 0) {
+         items.splice(indexToDelete, 1);
+         addItem(items)
+      }
+   }
+
+   const editRowHandler = (event) => {
+      
+   }
    return (
       <tbody>
-         {state.map(listItem => (
+         {items.map(listItem => (
             <tr key={nanoid()}>
-               {Object.values(listItem).map(rowElement => (
+               {Object.values(listItem).map((rowElement) => (
                   <td key={nanoid()}>
-                     {rowElement}
+                     <input type="text" value={rowElement}></input>
                   </td>
                ))}
+               <td><button onClick={deleteRowHandler}>Test</button></td>
             </tr>
          ))}
       </tbody>

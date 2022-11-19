@@ -2,11 +2,20 @@ import React, { useState } from 'react';
 import { nanoid } from "nanoid";
 import { TableRows } from '../TableRows/TableRows';
 import { Input } from '../input/input';
+import list from '../../api/list.json'
+import { TotalPrice } from '../totalPrice/totalPice';
 
 export const Table = ({columnNames}) => {
    const [itemList, setItemList] = useState([]);
 
-   const addItemToList = itemList;
+   const addItemsToArray = (newItem) => {
+      if (newItem instanceof Array) {
+         setItemList(itemListArray => [...newItem])
+      } else {
+         setItemList(itemListArray => [...itemListArray, newItem])
+      }
+   }
+
    return (
       <>
          <table>
@@ -17,9 +26,10 @@ export const Table = ({columnNames}) => {
                   ))}
                </tr>
             </thead>
-            <TableRows />
+            <TableRows items={itemList} addItem={addItemsToArray}/>
          </table>
-         <Input itemList={addItemToList}/>
+         <Input addItem={addItemsToArray} list={itemList}/>
+         <TotalPrice list={itemList} />
       </>
    );
 }

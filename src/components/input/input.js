@@ -1,7 +1,11 @@
-import data from '../../api/list.json'
 
-export const Input = (itemList) => {
-   const newProduct = {};
+
+export const Input = ({ addItem, list}) => {
+   const newProduct = {
+      name: undefined,
+      quantity: undefined,
+      price: undefined,
+   };
 
    const onFormChangeHandler = (event) =>{
       event.preventDefault();
@@ -12,16 +16,21 @@ export const Input = (itemList) => {
 
    const onSubmitHandler = (event) =>{
       event.preventDefault();
-      if (Object.keys(newProduct).length === 3) {
-         const existingField = data.find(product => product.name === newProduct.name);
-         if (existingField) {
-            existingField.quantity += +newProduct.quantity;
-         } else {
-            data = [...data, newProduct]
+         if (Object.values(newProduct).every(product => product)) {
+            const productExists = list.findIndex(item => item.name === newProduct.name);
+
+            if (productExists !== -1) {
+               list[productExists].quantity += newProduct.quantity;
+               addItem(list)
+            } else {
+               addItem(newProduct);
+            }
          }
-      }
-      console.log(data);
+      const allInputs = [...document.querySelectorAll('input')];
+      allInputs.map(item => item.value = '')
    }
+
+      // addItem(data)
    return (
       <form onSubmit={onSubmitHandler}>
          <input type="text" name="name" placeholder='Product' onChange={onFormChangeHandler}></input>
